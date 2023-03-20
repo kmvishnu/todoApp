@@ -9,16 +9,23 @@ import { TodoService } from '../shared/todo.service';
 export class TodoComponent implements OnInit {
   todos: any[] = [];
 
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
+
+
     this.todoService.firestoreCollection
       .valueChanges({ idField: 'id' })
       .subscribe((item) => {
         this.todos = item.sort((a: any, b: any) => {
           return a.isDone - b.isDone;
         });
+
+        this.resetFunction(this.todos);
+
       });
+
+
   }
 
   onClick(title: HTMLInputElement) {
@@ -33,4 +40,21 @@ export class TodoComponent implements OnInit {
   onDelete(id: string) {
     this.todoService.deleteTodo(id);
   }
+
+  resetFunction(todos: any) {
+
+    let time = new Date(Date.now()).toLocaleString('en-GB').split(',')[0]
+    console.log(time);
+
+    this.todoService.checkTime(time)
+    console.log(todos);
+
+  }
+
+  convertToDate(dateSting: any) {
+    const [day, month, year] = dateSting.split("/");
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  }
 }
+
+

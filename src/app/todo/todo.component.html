@@ -5,34 +5,18 @@
     <ul class="list-group">
       <li class="list-group-item mb-2 border py-0 rounded-3">
         <div class="input-group">
-          <input
-            type="text"
-            class="form-control border-0 py-3 shadow-none"
-            placeholder="Enter todo"
-            #titleInput
-            (keydown.enter)="onClick(titleInput)"
-          />
-          <button
-            class="btn text-success border-0"
-            (click)="onClick(titleInput)"
-            type="submit"
-          >
+          <input type="text" class="form-control border-0 py-3 shadow-none" placeholder="Enter todo" #titleInput
+            (keydown.enter)="onClick(titleInput)" />
+          <button class="btn text-success border-0" (click)="onClick(titleInput)" type="submit">
             <i class="fa-solid fa-circle-plus fa-xl"></i>
           </button>
         </div>
       </li>
-      <li
-        class="list-group-item mb-2 border rounded-3 py-3"
-        *ngFor="let item of todos"
-      >
+      <li class="list-group-item mb-2 border rounded-3 py-3" *ngFor="let item of todos">
         <span>
-          <i
-            class="text-success"
-            [ngClass]="
+          <i class="text-success" [ngClass]="
               item.isDone ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'
-            "
-            (click)="onStatusChange(item.id, !item.isDone)"
-          ></i>
+            " (click)="onStatusChange(item.id, !item.isDone)"></i>
           {{ item.title }}
           <span class="float-end text-secondary">
             <i class="fa-solid fa-trash-can" (click)="onDelete(item.id)"></i>
